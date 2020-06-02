@@ -46,16 +46,16 @@ public class Main {
 		String input = s.next();
 		switch(input){
 		case "1": // add new flight
-			addNewFlight(s, FlightList);
+			addNewFlight(s, FlightList, ComparFlights);
 			return true;
 		case "2": // remove flight
 			System.out.println("Removed flight\n");
 			return true;
 		case "3": // show all flights
-			showAllFlights(FlightList, ComparFlights);
+			showAllFlights(FlightList);
 			return true;
 		case "4":
-			saveToFile(FlightList, f, ComparFlights);
+			saveToFile(FlightList, f);
 			return true;
 		case "5":
 			readFromFile(FlightList);
@@ -70,7 +70,7 @@ public class Main {
 		}
 	}
 
-	public static void addNewFlight(Scanner s, ArrayList<Flight> FlightList) {
+	public static void addNewFlight(Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights) {
 		System.out.println("Please Enter the flight time: (hours, min)");
 		Time time = new Time(s.nextInt(), s.nextInt(), 0);
 		System.out.println("Please Enter the flight date: (year, month and then day)");
@@ -80,19 +80,19 @@ public class Main {
 		Flight f = new Flight(s.nextLine(), s.nextLine(),s.next(), date, time);
 		System.out.println(f + "\nFlight has been added\n");
 		FlightList.add(f);
+		FlightList.sort(ComparFlights);
+
 
 	}
 
-	public static void showAllFlights(ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights) {
-		FlightList.sort(ComparFlights);
+	public static void showAllFlights(ArrayList<Flight> FlightList) {
 		System.out.println(FlightList.toString().replace('[', ' ').replace(']', ' '));
 
 	}
 
-	public static void saveToFile(ArrayList<Flight> FlightList, File f, Comparator<Flight> ComparFlights) throws IOException {
+	public static void saveToFile(ArrayList<Flight> FlightList, File f) throws IOException {
 		f.createNewFile();
 		PrintWriter pw = new PrintWriter(f);
-		FlightList.sort(ComparFlights);
 		pw.print(FlightList.toString().replace('[', ' ').replace(']', ' '));
 		pw.close();
 		System.out.println("Saved Successfully");
@@ -112,19 +112,37 @@ public class Main {
 				String temp = s.next();
 				switch(temp){
 				case "Company:":
-					company = s.next();
+					String stop = s.next();
+					StringBuffer sb = new StringBuffer();
+					while(!stop.equals(",")) { // works with
+						sb.append(stop);
+						sb.append(" ");
+						stop = s.next();
+					}
+					company = sb.toString();
 					break;
 				case "Destnaition:":
-					Destnaition = s.next();
+					stop = s.next();
+					sb = new StringBuffer();
+					while(!stop.equals(",")) { // works with
+						sb.append(stop);
+						sb.append(" ");
+						stop = s.next();
+					}
+					Destnaition = sb.toString();
 					break;
-				case "Flight number:":
+				case "number:":
 					flightNum = s.next();
 					break;
 				case "Date:":
-					date = new Date(s.nextInt() - 1900, s.nextInt()-1, s.nextInt()); // year is +1901 in the date constractour
+					String dataAsString = s.next();
+					String [] data = dataAsString.split("-");
+					date = new Date(Integer.parseInt(data[0]) - 1900, Integer.parseInt(data[1])-1, Integer.parseInt(data[2])); // year is +1901 in the date constractour
 					break;
 				case "Time:":
-					time = new Time(s.nextInt(), s.nextInt(), 0);
+					dataAsString = s.next();
+					data = dataAsString.split(":");
+					time = new Time(Integer.parseInt(data[0]), Integer.parseInt(data[1]), 0);
 					check = true;
 					break;
 				default:
@@ -139,6 +157,7 @@ public class Main {
 
 			}
 			s.close();
+			System.out.println("Data transferd successfully");
 		}
 	}
 

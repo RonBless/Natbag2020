@@ -42,8 +42,8 @@ public class Flight {
 	}
 	
 	public String toString() {
-		return "\nCompany: " + company +", Destnaition: " + Destnaition +", Flight number: " + flightNum + 
-				", Date: " + date +", Time: " + time;
+		return "\nCompany: " + company +" , Destnaition: " + Destnaition +" , Flight number: " + flightNum + 
+				" , Date: " + date +" , Time: " + time;
 		
 	}
 }
