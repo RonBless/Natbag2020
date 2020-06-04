@@ -26,10 +26,6 @@ public class Flight {
 	public Time getTime() {
 		return time;
 	}
-	@SuppressWarnings("deprecation")
-	public int getMonth() {
-		return this.date.getMonth();
-	}
 	
 	public int compare(Flight f2) {
 		if(date.after(f2.getDate())) 
@@ -46,8 +42,8 @@ public class Flight {
 	}
 	
 	public String toString() {
-		return "\nCompany: " + company +", Destnaition: " + Destnaition +", Flight number: " + flightNum + 
-				", Date: " + date +", Time: " + time;
+		return "\nCompany: " + company +" , Destnaition: " + Destnaition +" , Flight number: " + flightNum + 
+				" , Date: " + date +" , Time: " + time;
 		
 	}
 }
