@@ -42,7 +42,7 @@ public class Main {
 
 	public static boolean Menu (Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights, File f) throws IOException {
 		System.out.println("Please enter your choice: ");
-		System.out.println("1- Add a new flight\n2- Remove a flight\n3- Show all flight\n4- save to file\n5- read from file\n6- exit");
+		System.out.println("1- Add a new flight\n2- Remove a flight\n3- Show all flight\n4- save to file\n5- read from file\n6- Search by month \n7- exit");
 		String input = s.next();
 		switch(input){
 		case "1": // add new flight
@@ -61,7 +61,10 @@ public class Main {
 			readFromFile(FlightList);
 			return true;
 		case "6":
-			System.out.println("Thank you for doing something simple as typing 6... twat...\n");
+			System.out.println("Enter the month number you want to see");
+			System.out.println(SearchByMonth (s.nextInt()-1,FlightList)+"\n");
+			return true;
+		case "7":
 			return false;
 		default:
 			System.out.println("Please enter a vaild option\n");
@@ -157,8 +160,21 @@ public class Main {
 
 			}
 			s.close();
-			System.out.println("Data transferd successfully");
+			System.out.println("\nData transferd successfully\n");
 		}
 	}
 
+
+	public static String SearchByMonth (int month,ArrayList<Flight> FlightList) {
+		StringBuffer sb = new StringBuffer();
+		for(int j=0;j<FlightList.size();j++) {
+			if(FlightList.get(j).getMonth()<=month) {
+				if (FlightList.get(j).getMonth()==month) {
+					sb.append(FlightList.get(j).toString());
+				}
+			}
+		}
+		return sb.toString();
+	}
 }
+

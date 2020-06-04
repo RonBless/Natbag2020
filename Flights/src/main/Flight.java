@@ -41,6 +41,12 @@ public class Flight {
 	
 	}
 	
+    @SuppressWarnings("deprecation")
+	public int getMonth() {
+        return this.date.getMonth();
+    }
+    
+	
 	public String toString() {
 		return "\nCompany: " + company +" , Destnaition: " + Destnaition +" , Flight number: " + flightNum + 
 				" , Date: " + date +" , Time: " + time;
