@@ -2,17 +2,18 @@ package main;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Comparator;
 
 public class Flight {
-	private String company;
-	private String flightNum;
-	private String Destnaition;
-	private Date date;
-	private Time time;
+	protected String company;
+	protected String flightNum;
+	protected String Destination;
+	protected Date date;
+	protected Time time;
 	
-	public Flight(String company, String Destnaition,String flightNum, Date date, Time time ) {
+	public Flight(String company, String Destination,String flightNum, Date date, Time time ) {
 		this.company = company;
-		this.Destnaition = Destnaition;
+		this.Destination = Destination;
 		this.flightNum = flightNum;
 		this.date = date;
 		this.time = time;
@@ -38,17 +39,16 @@ public class Flight {
 			return -1;
 		return 0;
 		
-	
 	}
+	
 	
     @SuppressWarnings("deprecation")
 	public int getMonth() {
         return this.date.getMonth();
     }
     
-	
 	public String toString() {
-		return "\nCompany: " + company +" , Destnaition: " + Destnaition +" , Flight number: " + flightNum + 
+		return "\nCompany: " + company +" , Destination: " + Destination +" , Flight number: " + flightNum + 
 				" , Date: " + date +" , Time: " + time;
 		
 	}

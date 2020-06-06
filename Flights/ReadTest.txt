@@ -1,4 +1,4 @@
  
-Company: El Al , Destnaition: New York , Flight number: 001 , Date: 2021-01-01 , Time: 01:01:00 , 
-Company: El Al , Destnaition: Amsterdam , Flight number: 002 , Date: 2021-02-02 , Time: 02:02:00 ,
-Company: El Al , Destnaition: San Fransisco , Flight number: E45, Date: 2021-13-13 , Time: 20:15:00  
+Company: El Al , Destination: New York , Flight number: 001 , Date: 2021-01-01 , Time: 01:01:00, 
+Company: El Al , Destination: Amsterdam , Flight number: 002 , Date: 2021-02-02 , Time: 02:02:00, 
+Company: Turkish Air Lines , Destination: Tel Aviv , Flight number: ES154 , Date: 2021-07-04 , Time: 20:15:00 

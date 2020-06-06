@@ -25,10 +25,10 @@ public class Main {
 		};
 		Date date = new Date(121,0,1);
 		Time time = new Time(1,1,0);
-		FlightList.add(new Flight("El Al","New York" , "001", date ,  time));
+		FlightList.add(new DepartureFlight("El Al","New York" , "001", date ,  time));
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
-		FlightList.add(new Flight("El Al","Amsterdam" , "002", date1 ,  time1));
+		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
 
 		while(Menu(s, FlightList, ComparFlights, f)) {
 
@@ -46,7 +46,18 @@ public class Main {
 		String input = s.next();
 		switch(input){
 		case "1": // add new flight
-			addNewFlight(s, FlightList, ComparFlights);
+			System.out.println("Is it a Landing or a Departure ");
+			switch(s.next()) {
+			case "landing":
+				addNewFlight(s, FlightList, ComparFlights, true);
+				break;
+			case "departure":
+				addNewFlight(s, FlightList, ComparFlights, false);
+				break;
+			default:
+					System.out.println("Wrong input");
+				break;
+			}
 			return true;
 		case "2": // remove flight
 			System.out.println("Removed flight\n");
@@ -73,16 +84,29 @@ public class Main {
 		}
 	}
 
-	public static void addNewFlight(Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights) {
+	public static void addNewFlight(Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights, boolean check) {
 		System.out.println("Please Enter the flight time: (hours, min)");
 		Time time = new Time(s.nextInt(), s.nextInt(), 0);
 		System.out.println("Please Enter the flight date: (year, month and then day)");
 		Date date = new Date(s.nextInt() - 1900, s.nextInt()-1, s.nextInt()); // year is +1901 in the date constractour
-		System.out.println("Now please enter the AirLine name, Destnaition and  flight number");
 		s.nextLine(); // must do because of the s.nextint() 
-		Flight f = new Flight(s.nextLine(), s.nextLine(),s.next(), date, time);
-		System.out.println(f + "\nFlight has been added\n");
-		FlightList.add(f);
+		if(check) {
+			System.out.println("Now please enter the Air Line name, Origin and  flight number");
+			LandingsFlight f = new LandingsFlight(s.nextLine(), s.nextLine(),s.next(), date, time);
+			LandingsFlight.add(f);
+			LandingsFlight.sort(ComparFlights);
+			System.out.println(f + "\nFlight has been added\n");
+			FlightList.add(f);
+		}
+		else {
+			System.out.println("Now please enter the Air Line name, Destination and  flight number");
+			DepartureFlight f = new DepartureFlight(s.nextLine(), s.nextLine(),s.next(), date, time);
+			DepartureFlight.add(f);
+			DepartureFlight.sort(ComparFlights);
+			System.out.println(f + "\nFlight has been added\n");
+			FlightList.add(f);
+		}
+
 		FlightList.sort(ComparFlights);
 
 
@@ -105,7 +129,7 @@ public class Main {
 		File f = new File("E:\\AFEKA\\First Year\\B\\Developing tools\\Flights\\ReadTest.txt");
 		String company= null;
 		String flightNum= null;
-		String Destnaition = null;
+		String destination = null;
 		Date date = null;
 		Time time = null;
 		boolean check=false;
@@ -124,7 +148,7 @@ public class Main {
 					}
 					company = sb.toString();
 					break;
-				case "Destnaition:":
+				case "Destination:":
 					stop = s.next();
 					sb = new StringBuffer();
 					while(!stop.equals(",")) { // works with
@@ -132,7 +156,7 @@ public class Main {
 						sb.append(" ");
 						stop = s.next();
 					}
-					Destnaition = sb.toString();
+					destination = sb.toString();
 					break;
 				case "number:":
 					flightNum = s.next();
@@ -153,7 +177,7 @@ public class Main {
 				}
 
 				if(check) {
-					Flight flight = new Flight(company, Destnaition, flightNum, date, time);
+					Flight flight = new Flight(company, destination, flightNum, date, time);
 					FlightList.add(flight);
 					check = false;
 				}
