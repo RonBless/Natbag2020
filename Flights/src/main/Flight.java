@@ -28,6 +28,10 @@ public class Flight {
 		return time;
 	}
 	
+	public String getDestination() {
+		return Destination;
+	}
+	
 	public int compare(Flight f2) {
 		if(date.after(f2.getDate())) 
 			return 1;

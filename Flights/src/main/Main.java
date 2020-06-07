@@ -42,7 +42,7 @@ public class Main {
 
 	public static boolean Menu (Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights, File f) throws IOException {
 		System.out.println("Please enter your choice: ");
-		System.out.println("1- Add a new flight\n2- Remove a flight\n3- Show all flight\n4- save to file\n5- read from file\n6- Search by month \n7- exit");
+		System.out.println("1- Add a new flight\n2- Remove a flight\n3- Show all flight\n4- save to file\n5- read from file\n6- Search by month \n7- Show flights by destination\n8- exit");
 		String input = s.next();
 		switch(input){
 		case "1": // add new flight
@@ -76,6 +76,9 @@ public class Main {
 			System.out.println(SearchByMonth (s.nextInt()-1,FlightList)+"\n");
 			return true;
 		case "7":
+			System.out.println(showByDestination(s, FlightList));
+			return true;
+		case "8":
 			return false;
 		default:
 			System.out.println("Please enter a vaild option\n");
@@ -198,6 +201,19 @@ public class Main {
 				}
 			}
 		}
+		return sb.toString();
+	}
+	
+	public static String showByDestination(Scanner s, ArrayList<Flight> FlightList) {
+		StringBuffer sb = new StringBuffer();
+		System.out.println("Hello, please enter your flight destination");
+		String dest = s.next();
+		for (int i = 0; i < FlightList.size(); i++) {
+			if (dest.equals(FlightList.get(i).getDestination())) {
+				sb.append(FlightList.get(i));
+			}
+		}
+		
 		return sb.toString();
 	}
 }
