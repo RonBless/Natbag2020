@@ -59,9 +59,19 @@ public class Main {
 				break;
 			}
 			return true;
-		case "2": // remove flight
-			System.out.println("Removed flight\n");
-			return true;
+		case "2": 
+			System.out.println("Is it a Landing or a Departure ");
+			switch (s.next()) {
+			case "landing":
+				removeFlight(s, FlightList, true);
+				break;
+			case "departure":
+				removeFlight(s, FlightList, false);
+				break;
+			default:
+				System.out.println("Wrong input");
+				break;
+			}
 		case "3": // show all flights
 			showAllFlights(FlightList);
 			return true;
@@ -114,6 +124,34 @@ public class Main {
 
 
 	}
+	
+	public static void removeFlight(Scanner s, ArrayList<Flight> FlightList,
+			boolean check) {
+		System.out.println("Hello, please enter the flight you want to remove from the list, via flightNum");
+		String flightNum = s.next();
+		if (check) {
+			for (int i = 0; i < FlightList.size(); i++) {
+				if (FlightList.get(i).getFlightNum().equals(flightNum)) {
+					LandingsFlight f = (LandingsFlight) FlightList.get(i);
+					LandingsFlight.remove(f);
+					FlightList.remove(i);
+					System.out.println(FlightList.get(i) + "\nFlight has been removed\n");
+				} else {
+					for (int j = 0; j < FlightList.size(); j++) {
+						if (FlightList.get(i).getFlightNum().equals(flightNum)) {
+							DepartureFlight.remove((DepartureFlight) FlightList.get(i));
+							System.out.println(FlightList.get(i) + "\nFlight has been removed\n");
+							FlightList.remove(i);
+						}
+
+					}
+
+				}
+
+			}
+		}
+	}
+
 
 	public static void showAllFlights(ArrayList<Flight> FlightList) {
 		System.out.println(FlightList.toString().replace('[', ' ').replace(']', ' '));
