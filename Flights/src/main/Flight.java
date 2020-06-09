@@ -2,7 +2,6 @@ package main;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Comparator;
 
 public class Flight {
 	protected String company;
