@@ -49,10 +49,10 @@ public class Main {
 			System.out.println("Is it a Landing or a Departure ");
 			switch(s.next()) {
 			case "landing":
-				addNewFlight(s, FlightList, ComparFlights, true);
+				addNewFlight(s, FlightList, ComparFlights, true); // true = landing
 				break;
 			case "departure":
-				addNewFlight(s, FlightList, ComparFlights, false);
+				addNewFlight(s, FlightList, ComparFlights, false); // false = departure
 				break;
 			default:
 					System.out.println("Wrong input");
@@ -73,7 +73,7 @@ public class Main {
 				break;
 			}
 		case "3": // show all flights
-			showAllFlights(FlightList);
+			System.out.println(showAllFlights(FlightList));
 			return true;
 		case "4":
 			saveToFile(FlightList, f);
@@ -153,8 +153,8 @@ public class Main {
 	}
 
 
-	public static void showAllFlights(ArrayList<Flight> FlightList) {
-		System.out.println(FlightList.toString().replace('[', ' ').replace(']', ' '));
+	public static String showAllFlights(ArrayList<Flight> FlightList) {
+		return (FlightList.toString().replace('[', ' ').replace(']', ' '));
 
 	}
 
@@ -166,8 +166,8 @@ public class Main {
 		System.out.println("Saved Successfully");
 	}
 
-	public static void readFromFile(ArrayList<Flight> FlightList) throws FileNotFoundException {
-		File f = new File("E:\\AFEKA\\First Year\\B\\Developing tools\\Flights\\ReadTest.txt");
+	public static void readFromFile(ArrayList<Flight> FlightList) throws NumberFormatException, IOException {
+		File f = new File("E:\\AFEKA\\First Year\\B\\Developing tools\\Natbag2020\\Flights\\ReadTest.txt");
 		String company= null;
 		String flightNum= null;
 		String destination = null;
@@ -199,6 +199,18 @@ public class Main {
 					}
 					destination = sb.toString();
 					break;
+				case "Origin:":
+					stop = s.next();
+					sb = new StringBuffer();
+					while(!stop.equals(",")) { // works with
+						sb.append(stop);
+						sb.append(" ");
+						stop = s.next();
+						check = true; // check for departure or landing.
+
+					}
+					destination = sb.toString();
+					break;
 				case "number:":
 					flightNum = s.next();
 					break;
@@ -211,18 +223,26 @@ public class Main {
 					dataAsString = s.next();
 					data = dataAsString.split(":");
 					time = new Time(Integer.parseInt(data[0]), Integer.parseInt(data[1]), 0);
-					check = true;
 					break;
 				default:
 					break;
 				}
 
-				if(check) {
-					Flight flight = new Flight(company, destination, flightNum, date, time);
-					FlightList.add(flight);
-					check = false;
-				}
+				if(temp.equals("Time:")) {
+					if(check){
+						LandingsFlight flight = new LandingsFlight(company, destination, flightNum, date, time);
+						LandingsFlight.add(flight);
+						FlightList.add(flight);
+						check = false;
 
+					}
+					else {
+						DepartureFlight flight = new DepartureFlight(company, destination, flightNum, date, time);
+						DepartureFlight.add(flight);
+						FlightList.add(flight);
+					}
+
+				}
 			}
 			s.close();
 			System.out.println("\nData transferd successfully\n");
@@ -251,7 +271,6 @@ public class Main {
 				sb.append(FlightList.get(i));
 			}
 		}
-		
 		return sb.toString();
 	}
 }

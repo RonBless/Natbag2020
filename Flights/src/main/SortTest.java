@@ -14,17 +14,17 @@ public class SortTest {
 	@Test
 	public void test() {
 		ArrayList<Flight> flights = new ArrayList<Flight>();
-		Date date = new Date(121,0,1);
-		Time time = new Time(1,1,0);
-		flights.add(new Flight("El-Al","New_York" , "001", date ,  time));
-		Date date1 = new Date(121,1,2);
-		Time time1 = new Time(2,2,0);
-		flights.add(new Flight("El-Al","Amsterdam" , "002", date1 ,  time1));
+		Date date = new Date(2020,7,1);
+		Time time = new Time(19,30,0);
+		String allflight = null;
 
+		flights.add(new LandingsFlight("El Al","New York" , "e15", date ,  time));
+		flights.add(new LandingsFlight("El Al","New York" , "e15", date ,  time));
+		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
+		assertEquals(Main.showAllFlights(flights), allflight); // Check addFlight.
 		
 		
-		assertEquals(flights.toString(),"[Company: El-Al, Destnaition: New_York, Flight number: 001, Date: 2021-01-01, Time: 01:01:00, " + 
-				"Company: El-Al, Destnaition: Amsterdam, Flight number: 002, Date: 2021-02-02, Time: 02:02:00]");
+		
 
 
 	}
