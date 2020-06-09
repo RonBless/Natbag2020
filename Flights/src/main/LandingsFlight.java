@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LandingsFlight extends Flight {
-	private static ArrayList <LandingsFlight> landingList;
+	private static ArrayList<LandingsFlight> landingList;
 	private String origin;
+
 	public LandingsFlight(String company, String destination, String flightNum, Date date, Time time) {
 		super(company, "Tel Aviv", flightNum, date, time);
 		origin = destination;
@@ -17,11 +18,20 @@ public class LandingsFlight extends Flight {
 		try {
 			landingList.add(a);
 			return true;
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			landingList = new ArrayList<LandingsFlight>();
 			add(a);
 			return true;
+		}
+	}
+
+	public static boolean remove(LandingsFlight a) {
+		try {
+			landingList.remove(a);
+			return true;
+		} catch (Exception e) {
+			System.out.println("Cannot remove this flight");
+			return false;
 		}
 	}
 
@@ -29,24 +39,21 @@ public class LandingsFlight extends Flight {
 		try {
 			landingList.sort(c);
 			return true;
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("List is empty cannot sort");
 			return false;
 		}
-		
-		
+
 	}
 
 	public static String show() {
-		return(landingList.toString().replace('[', ' ').replace(']', ' '));
+		return (landingList.toString().replace('[', ' ').replace(']', ' '));
 
 	}
 
 	public String toString() {
-		return "\nCompany: " + company +" , Origin: " + origin +" , Flight number: " + flightNum + 
-				" , Date: " + date +" , Time: " + time;
-	}	
-
+		return "\nCompany: " + company + " , Origin: " + origin + " , Flight number: " + flightNum + " , Date: " + date
+				+ " , Time: " + time;
+	}
 
 }
