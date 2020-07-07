@@ -29,6 +29,8 @@ public class Main {
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
 		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
+		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
+		
 
 		while(Menu(s, FlightList, ComparFlights, f)) {
 
@@ -59,7 +61,7 @@ public class Main {
 				break;
 			}
 			return true;
-		case "2": 
+		case "2": // Remove flight
 			System.out.println("Is it a Landing or a Departure ");
 			switch (s.next()) {
 			case "landing":
@@ -75,17 +77,17 @@ public class Main {
 		case "3": // show all flights
 			System.out.println(showAllFlights(FlightList));
 			return true;
-		case "4":
+		case "4": // save to file
 			saveToFile(FlightList, f);
 			return true;
-		case "5":
+		case "5": // read from flie
 			readFromFile(FlightList);
 			return true;
-		case "6":
+		case "6": // search by month
 			System.out.println("Enter the month number you want to see");
 			System.out.println(SearchByMonth (s.nextInt()-1,FlightList)+"\n");
 			return true;
-		case "7":
+		case "7": //show flights by destination
 			System.out.println(showByDestination(s, FlightList));
 			return true;
 		case "8":

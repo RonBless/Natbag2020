@@ -9,9 +9,9 @@ public class LandingsFlight extends Flight {
 	private static ArrayList<LandingsFlight> landingList;
 	private String origin;
 
-	public LandingsFlight(String company, String destination, String flightNum, Date date, Time time) {
+	public LandingsFlight(String company, String origin, String flightNum, Date date, Time time) {
 		super(company, "Tel Aviv", flightNum, date, time);
-		origin = destination;
+		this.origin = origin;
 	}
 
 	public static boolean add(LandingsFlight a) {
