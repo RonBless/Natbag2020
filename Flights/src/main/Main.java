@@ -169,7 +169,7 @@ public class Main {
 	}
 
 	public static void readFromFile(ArrayList<Flight> FlightList) throws NumberFormatException, IOException {
-		File f = new File("E:\\AFEKA\\First Year\\B\\Developing tools\\Natbag2020\\Flights\\ReadTest.txt");
+		File f = new File("ReadTest.txt");
 		String company= null;
 		String flightNum= null;
 		String destination = null;

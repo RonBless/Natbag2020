@@ -29,7 +29,7 @@ public class SortTest {
 //	}
 	
 	@Test 
-	public void saveToFileTest() throws NumberFormatException, IOException {
+	public void ReadFromFileTest() throws NumberFormatException, IOException {
 		Date date = new Date(121,0,1);
 		Time time = new Time(1,1,0);
 		flights = new ArrayList<Flight>();
@@ -41,7 +41,7 @@ public class SortTest {
 		ArrayList<Flight> FlightList = new ArrayList<Flight>();
 		Main.readFromFile(FlightList);
 		assertEquals(Main.showAllFlights(FlightList), Main.showAllFlights(flights)); // Check addFlight.
-
 	}
+	
 
 }
