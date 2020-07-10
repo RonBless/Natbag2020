@@ -31,6 +31,8 @@ public class Main {
 		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
 		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
 		
+		FlightList.remove(new DepartureFlight("El Al","New York" , "001", date ,  time)); //the only reason it exists is because of the jTest check
+		
 
 		while(Menu(s, FlightList, ComparFlights, f)) {
 
@@ -254,6 +256,7 @@ public class Main {
 
 	public static String SearchByMonth (int month,ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();
+		System.out.println("Hello, please enter the month you want to search flights in");
 		for(int j=0;j<FlightList.size();j++) {
 			if(FlightList.get(j).getMonth()<=month) {
 				if (FlightList.get(j).getMonth()==month) {
