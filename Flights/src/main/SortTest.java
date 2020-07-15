@@ -37,9 +37,9 @@ public class SortTest {
 		Time time2 = new Time(2, 2, 0);
 		String allflight = null;
 
-		FlightList.add(new DepartureFlight("El Al", "New York", "001", date1, time1));
-		FlightList.add(new DepartureFlight("El Al", "Amsterdam", "002", date2, time2));
-		FlightList.add(new LandingsFlight("America AirLines", "Los Angels", "003", date, time2));
+		flights.add(new DepartureFlight("El Al", "New York", "001", date1, time1));
+		flights.add(new DepartureFlight("El Al", "Amsterdam", "002", date2, time2));
+		flights.add(new LandingsFlight("America AirLines", "Los Angels", "003", date, time2));
 
 		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
 		assertEquals(Main.showAllFlights(flights), allflight); // Check addFlight.
@@ -47,9 +47,10 @@ public class SortTest {
 
 	@Test
 	public void removeFlightTest() {
+		String allflight;
 		Date date1 = new Date(121, 0, 1);
 		Time time1 = new Time(1, 1, 0);
-		new DepartureFlight(("El Al","New York" , "001", date ,  time));
+		new DepartureFlight("El Al","New York" , "001", date ,  time);
 		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
 		assertEquals(Main.showAllFlights(flights), allflight); // Check removeFlight
 	}
