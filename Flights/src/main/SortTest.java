@@ -44,13 +44,31 @@ public class SortTest {
 		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
 		assertEquals(Main.showAllFlights(flights), allflight); // Check addFlight.
 	}
+	
+	@Test
+	public void searchByMonthTest() {
+		String allflight = null;
+		flights = new ArrayList<Flight>();
+		Date date1 = new Date(121, 0, 1); //1900 + 121 year
+		Time time1 = new Time(1, 1, 0);
+		Date date2 = new Date(121, 2, 2);
+		Time time2 = new Time(2, 2, 0);
+		
+		flights.add(new DepartureFlight("El Al", "New York", "001", date1, time1));
+		flights.add(new DepartureFlight("El Al", "Amsterdam", "002", date1, time2));
+		LandingsFlight flight1 = new LandingsFlight("America AirLines", "Los Angels", "003", date2, time2);
+		flights.add(flight1);
+		allflight = flight1.toString().replace('[', ' ').replace(']', ' ');
+
+		assertEquals(Main.SearchByMonth(2, flights),allflight);
+	}
 
 	@Test
 	public void removeFlightTest() {
 		String allflight;
 		Date date1 = new Date(121, 0, 1);
 		Time time1 = new Time(1, 1, 0);
-		new DepartureFlight("El Al","New York" , "001", date ,  time);
+		new DepartureFlight("El Al","New York" , "001", date1 ,  time1);
 		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
 		assertEquals(Main.showAllFlights(flights), allflight); // Check removeFlight
 	}

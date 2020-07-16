@@ -82,12 +82,13 @@ public class Main {
 		case "4": // save to file
 			saveToFile(FlightList, f);
 			return true;
-		case "5": // read from flie
+		case "5": // read from file
 			readFromFile(FlightList);
 			return true;
 		case "6": // search by month
 			System.out.println("Enter the month number you want to see");
-			System.out.println(SearchByMonth (s.nextInt()-1,FlightList)+"\n");
+			int month = s.nextInt()-1;
+			System.out.println(SearchByMonth (month,FlightList)+"\n");
 			return true;
 		case "7": //show flights by destination
 			System.out.println(showByDestination(s, FlightList));
@@ -256,7 +257,6 @@ public class Main {
 
 	public static String SearchByMonth (int month,ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();
-		System.out.println("Hello, please enter the month you want to search flights in");
 		for(int j=0;j<FlightList.size();j++) {
 			if(FlightList.get(j).getMonth()<=month) {
 				if (FlightList.get(j).getMonth()==month) {
