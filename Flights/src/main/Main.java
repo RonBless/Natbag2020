@@ -293,6 +293,34 @@ public class Main {
 		}
 		return sb.toString();
 	}
+	//-----------------------------------------HTML functions------------------------------------------//
 
+		public static ArrayList<Flight> searchByDestinationFlight(String dest, ArrayList<Flight> FlightList) {
+			for (int i = 0; i < FlightList.size(); i++) {
+				if (!(dest.equals(FlightList.get(i).getDestination()))) {
+					FlightList.remove(i);
+				}
+			}
+			return FlightList;
+		}
+
+		public static ArrayList<Flight> searchByCompanyFlight(String comp, ArrayList<Flight> FlightList) {
+			for (int i = 0; i < FlightList.size(); i++) {
+				if (!(comp.equals(FlightList.get(i).getCompany()))) {
+					FlightList.remove(i);
+				}
+			}
+			return FlightList;
+		}
+
+		public static ArrayList<Flight> searchByDateFlight(Date date1, Date date2, ArrayList<Flight> FlightList) {
+			// date1 = initial date; date2 = final date
+			for (int i = 0; i < FlightList.size(); i++) {
+				if (!(FlightList.get(i).getDate().after(date1)&&FlightList.get(i).getDate().before(date2))) {
+					FlightList.remove(i);
+				}
+			}
+			return FlightList;
+		}
 }
 

@@ -35,6 +35,10 @@ public class Flight {
 		return Destination;
 	}
 
+	public String getCompany() {
+		return company;
+	}
+
 	public int compare(Flight f2) {
 		if (date.after(f2.getDate()))
 			return 1;
