@@ -65,6 +65,7 @@ public class SortTest {
 
 	@Test
 	public void removeFlightTest() {
+		int a = Math.abs(5);
 		String allflight;
 		Date date1 = new Date(121, 0, 1);
 		Time time1 = new Time(1, 1, 0);

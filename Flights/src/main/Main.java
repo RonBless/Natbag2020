@@ -25,17 +25,32 @@ public class Main {
 		};
 		Date date = new Date(121,0,1);
 		Time time = new Time(1,1,0);
-		FlightList.add(new DepartureFlight("El Al","New York" , "001", date ,  time));
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
 		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
 		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
-		
-		FlightList.remove(new DepartureFlight("El Al","New York" , "001", date ,  time)); //the only reason it exists is because of the jTest check
-		
 
-		while(Menu(s, FlightList, ComparFlights, f)) {
+		if(args.length>0) {
+			boolean isHtml = args[0].equalsIgnoreCase("html");
+			boolean isDepartures = args.length > 1 && args[1].equalsIgnoreCase("departures");
+			if (isDepartures) {
+				System.out.println("Departure 1");
+				if (isHtml) System.out.println("<br>");
+				System.out.println("Departure 3");
+				if (isHtml) System.out.println("<br>");
+			}
+			else {
+				System.out.println("Arrival 1");
+				if (isHtml) System.out.println("<br>");
+				System.out.println("Arrival 2");
+				if (isHtml) System.out.println("<br>");
+			}
+		}
+		else {
 
+			while(Menu(s, FlightList, ComparFlights, f)) {
+
+			}
 		}
 
 	}
@@ -59,7 +74,7 @@ public class Main {
 				addNewFlight(s, FlightList, ComparFlights, false); // false = departure
 				break;
 			default:
-					System.out.println("Wrong input");
+				System.out.println("Wrong input");
 				break;
 			}
 			return true;
@@ -129,7 +144,7 @@ public class Main {
 
 
 	}
-	
+
 	public static void removeFlight(Scanner s, ArrayList<Flight> FlightList,
 			boolean check) {
 		System.out.println("Hello, please enter the flight you want to remove from the list, via flightNum");
@@ -266,7 +281,7 @@ public class Main {
 		}
 		return sb.toString();
 	}
-	
+
 	public static String showByDestination(Scanner s, ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();
 		System.out.println("Hello, please enter your flight destination");
@@ -278,5 +293,6 @@ public class Main {
 		}
 		return sb.toString();
 	}
+
 }
 
