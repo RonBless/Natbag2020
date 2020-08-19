@@ -36,10 +36,9 @@ public class SortTest {
 		Date date2 = new Date(121, 1, 2);
 		Time time2 = new Time(2, 2, 0);
 		String allflight = null;
-
 		flights.add(new DepartureFlight("El Al", "New York", "001", date1, time1));
 		flights.add(new DepartureFlight("El Al", "Amsterdam", "002", date2, time2));
-		flights.add(new LandingsFlight("America AirLines", "Los Angels", "003", date, time2));
+		flights.add(new LandingsFlight("America AirLines", "Los Angels", "003", date1, time2));
 
 		allflight = flights.toString().replace('[', ' ').replace(']', ' ');
 		assertEquals(Main.showAllFlights(flights), allflight); // Check addFlight.
@@ -54,8 +53,8 @@ public class SortTest {
 		Date date2 = new Date(121, 2, 2);
 		Time time2 = new Time(2, 2, 0);
 		
-		flights.add(new DepartureFlight("El Al", "New York", "001", date1, time1));
-		flights.add(new DepartureFlight("El Al", "Amsterdam", "002", date1, time2));
+		flights.add(new DepartureFlight("ElAl", "New York", "001", date1, time1));
+		flights.add(new DepartureFlight("ElAl", "Amsterdam", "002", date1, time2));
 		LandingsFlight flight1 = new LandingsFlight("America AirLines", "Los Angels", "003", date2, time2);
 		flights.add(flight1);
 		allflight = flight1.toString().replace('[', ' ').replace(']', ' ');
@@ -70,9 +69,10 @@ public class SortTest {
 		Time time = new Time(1,1,0);
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
-		flights.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
+		flights.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
 		flights.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
-		String allflight = flights.toString().replace('[', ' ').replace(']', ' ');
-		assertEquals(Main.showAllFlights(flights), allflight); // Check removeFlight
+		flights.add(new LandingsFlight("America12", "New York" ,"005", date, time1));
+		LandingsFlight.add(new LandingsFlight("America12", "New York" ,"005", date, time1));
+		assertEquals(Main.removeFlight("005", flights, true), true); // Check removeFlight
 	}
 }

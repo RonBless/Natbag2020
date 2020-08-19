@@ -15,7 +15,7 @@ public class DepartureFlight extends Flight {
 	public static boolean add(DepartureFlight a) {
 		try {
 			for (int i = 0; i < departureList.size(); i++) {
-				if(a.getFlightNum() == departureList.get(i).getFlightNum()) {
+				if(a.getFlightNum().equals(departureList.get(i).getFlightNum())) {
 					return false;
 				}
 			}

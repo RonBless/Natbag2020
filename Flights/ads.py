@@ -10,11 +10,11 @@ def flight(direction):
     return subprocess.check_output(["java", "-classpath",   #Linux command
                                     "bin", "main.Main",
                                     request.args.get('outformat'), direction, #check if departures is args[1]
-                                    request.args.get('airline'), request.args.get('country'), #args[2]
-                                    request.args.get('city'), request.args.get('airport'),
-                                    request.args.get('day1'), request.args.get('month1'),
-                                    request.args.get('year1'), request.args.get('day2'),
-                                    request.args.get('month2'), request.args.get('year2'),
+                                    request.args.get('airline'), request.args.get('country'), #args[2], args[3]
+                                    request.args.get('flightNumber'), #enter "-1" in order to ignore it in search
+                                    request.args.get('year1'), request.args.get('month1'),#args[5], args[6]
+                                    request.args.get('day1'), request.args.get('year2'),
+                                    request.args.get('month2'), request.args.get('day2'),
                                     request.args.get('sunday'), request.args.get('monday'),
                                     request.args.get('tuesday'), request.args.get('wednesday'),
                                     request.args.get('thursday'), request.args.get('friday'),
@@ -26,11 +26,14 @@ def dep():
     return flight("departures")
 
 
-@app.route("/arrivals")
+@app.route("/landings")
 def arr():
-    return flight("arrivals")
+    return flight("landings")
 
 
 app.run(port=8000, host="0.0.0.0")
 
-#http://localhost:8000/departures?outformat=html&country=france&city=paris&airport=CDG&airline=elal&day1=4&month1=6&year1=2020&day2=31&month2=7&year2=2020&sunday=true&monday=false&tuesday=false&wednesday=true&thursday=false&friday=false&saturday=false
+#depatrue flight link
+#http://localhost:8000/departures?outformat=html&country=Amsterdam&airline=elal&flightNumber=002&day1=4&month1=6&year1=2020&day2=31&month2=7&year2=2021&sunday=true&monday=false&tuesday=true&wednesday=true&thursday=false&friday=false&saturday=false
+
+#landing flight link (need to fix)

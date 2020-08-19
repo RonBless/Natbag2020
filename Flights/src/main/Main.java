@@ -27,26 +27,39 @@ public class Main {
 		Time time = new Time(1,1,0);
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
-		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
-		DepartureFlight.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
+		FlightList.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
+		DepartureFlight.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
 		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
 		LandingsFlight.add((new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1)));
 
 		if(args.length>0) {
+			ArrayList<Flight> list = new ArrayList<Flight>();
 			boolean isHtml = args[0].equalsIgnoreCase("html");
 			boolean isDepartures = args.length > 1 && args[1].equalsIgnoreCase("departures");
+			Date startDate = new Date(Integer.parseInt(args[5])-1900,Integer.parseInt(args[6])-1,Integer.parseInt(args[7]));
+			Date endDate = new Date(Integer.parseInt(args[8])-1900,Integer.parseInt(args[9])-1,Integer.parseInt(args[10]));
+			boolean [] days = new boolean [7];
+			for (int i = 0; i < days.length; i++) {
+				if(args[11+i].equalsIgnoreCase("true"))
+					days[i] = true;
+				else
+					days[i] = false;
+			}
 			if (isDepartures) {
-				System.out.println("Departure 1");
-				if (isHtml) System.out.println("<br>");
-				System.out.println("Departure 3");
-				if (isHtml) System.out.println("<br>");
+				list = copyList(false); // will copy the DepartureFlight list
+				System.out.println("Departures flights:");
 			}
 			else {
-				System.out.println("Arrival 1");
-				if (isHtml) System.out.println("<br>");
-				System.out.println("Arrival 2");
-				if (isHtml) System.out.println("<br>");
+				list = copyList(true); // will copy the LandingsFLight list
+				System.out.println("Landings flights:");
 			}
+			if (isHtml) System.out.println("<br>");
+			searchByCompanyFlight(args[2],list);
+			searchByDestinationFlight(args[3], list);
+			searchByFlightNumber(args[4], list); // can be avoided by entering "-1"
+			searchByDateFlight(startDate, endDate, list);
+			searchByDays(days, list);
+			System.out.println(showWithDate(list));
 		}
 		else {
 
@@ -133,18 +146,29 @@ public class Main {
 		if(check) {
 			System.out.println("Now please enter the Air Line name, Origin and  flight number");
 			LandingsFlight f = new LandingsFlight(s.nextLine(), s.nextLine(),s.next(), date, time);
-			LandingsFlight.add(f);
-			LandingsFlight.sort(ComparFlights);
-			System.out.println(f + "\nFlight has been added\n");
-			FlightList.add(f);
+			if(LandingsFlight.add(f)) {
+				LandingsFlight.sort(ComparFlights);
+				System.out.println(f + "\nFlight has been added\n");
+				FlightList.add(f);
+			}
+			else {
+				System.out.println("Could not add desired flight");
+			}
+
 		}
 		else {
 			System.out.println("Now please enter the Air Line name, Destination and  flight number");
 			DepartureFlight f = new DepartureFlight(s.nextLine(), s.nextLine(),s.next(), date, time);
-			DepartureFlight.add(f);
-			DepartureFlight.sort(ComparFlights);
-			System.out.println(f + "\nFlight has been added\n");
-			FlightList.add(f);
+			if(DepartureFlight.add(f)){
+				DepartureFlight.sort(ComparFlights);
+				System.out.println(f + "\nFlight has been added\n");
+				FlightList.add(f);
+			}
+			else {
+				System.out.println("Could not add desired flight");
+
+			}
+
 		}
 
 		FlightList.sort(ComparFlights);
@@ -278,7 +302,7 @@ public class Main {
 			System.out.println("\nData transferd successfully\n");
 		}
 	}
-	
+
 
 	public static String SearchByMonth (int month,ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();
@@ -305,32 +329,84 @@ public class Main {
 	}
 	//-----------------------------------------HTML functions------------------------------------------//
 
-		public static ArrayList<Flight> searchByDestinationFlight(String dest, ArrayList<Flight> FlightList) {
-			for (int i = 0; i < FlightList.size(); i++) {
-				if (!(dest.equals(FlightList.get(i).getDestination()))) {
-					FlightList.remove(i);
+	public static ArrayList<Flight> searchByDestinationFlight(String dest, ArrayList<Flight> FlightList) {
+		for (int i = 0; i < FlightList.size(); i++) {
+			if (!(dest.equalsIgnoreCase(FlightList.get(i).getDestination().trim()))) {
+				FlightList.remove(i);
+			}
+		}
+		return FlightList;
+	}
+
+	public static ArrayList<Flight> searchByCompanyFlight(String comp, ArrayList<Flight> FlightList) {
+		for (int i = 0; i < FlightList.size(); i++) {
+			if (!(comp.equalsIgnoreCase(FlightList.get(i).getCompany().trim()))) {
+				FlightList.remove(i);
+			}
+		}
+		return FlightList;
+	}
+
+	public static ArrayList<Flight> searchByDateFlight(Date date1, Date date2, ArrayList<Flight> FlightList) {
+		// date1 = initial date; date2 = final date
+		for (int i = 0; i < FlightList.size(); i++) {
+			if (!(FlightList.get(i).getDate().after(date1))) {
+				FlightList.remove(i);
+			}
+			if(!(FlightList.get(i).getDate().before(date2))) {
+				FlightList.remove(i);
+			}
+		}
+		return FlightList;
+	}
+
+	public static ArrayList<Flight> searchByDays(boolean[]days,ArrayList<Flight> FlightList){
+		for (int i = 0; i < days.length; i++) {
+			if(!days[i]) {
+				for (int j = 0; j < FlightList.size(); j++) {
+					if(FlightList.get(j).getDate().getDay()==i) {
+						FlightList.remove(j);
+					}
 				}
 			}
-			return FlightList;
 		}
 
-		public static ArrayList<Flight> searchByCompanyFlight(String comp, ArrayList<Flight> FlightList) {
-			for (int i = 0; i < FlightList.size(); i++) {
-				if (!(comp.equals(FlightList.get(i).getCompany()))) {
-					FlightList.remove(i);
-				}
-			}
-			return FlightList;
-		}
+		return FlightList;
+	}
 
-		public static ArrayList<Flight> searchByDateFlight(Date date1, Date date2, ArrayList<Flight> FlightList) {
-			// date1 = initial date; date2 = final date
-			for (int i = 0; i < FlightList.size(); i++) {
-				if (!(FlightList.get(i).getDate().after(date1)&&FlightList.get(i).getDate().before(date2))) {
-					FlightList.remove(i);
-				}
-			}
+	public static ArrayList<Flight> searchByFlightNumber(String flightNum,ArrayList<Flight> FlightList){
+		if(flightNum.equals("-1")) {
 			return FlightList;
 		}
+		for (int i = 0; i < FlightList.size(); i++) {
+			if(!FlightList.get(i).getFlightNum().equals(flightNum)) {
+				FlightList.remove(i);
+			}
+		}
+		return FlightList;
+	}
+
+	public static ArrayList<Flight> copyList(boolean check) {
+		ArrayList<Flight> list = new ArrayList<Flight>();
+		if(check) {
+			for (int i = 0; i < LandingsFlight.getArry().size(); i++) {
+				list.add(LandingsFlight.getArry().get(i));
+			}
+			return list;
+		}
+		for (int i = 0; i < DepartureFlight.getArry().size(); i++) {
+			list.add(DepartureFlight.getArry().get(i));
+		}
+		return list;
+	}
+	
+	public static String showWithDate(ArrayList<Flight> FlightList) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < FlightList.size(); i++) {
+			sb.append(FlightList.get(i).toString() + " " +FlightList.get(i).getDayInString());
+		}
+		return sb.toString();
+	}
 }
+
 
