@@ -331,7 +331,7 @@ public class Main {
 
 	public static ArrayList<Flight> searchByDestinationFlight(String dest, ArrayList<Flight> FlightList) {
 		for (int i = 0; i < FlightList.size(); i++) {
-			if (!(dest.equalsIgnoreCase(FlightList.get(i).getDestination().trim()))) {
+			if (!(dest.equalsIgnoreCase(FlightList.get(i).getDestination().replaceAll("\\s+", "")))) {
 				FlightList.remove(i);
 			}
 		}
@@ -340,7 +340,7 @@ public class Main {
 
 	public static ArrayList<Flight> searchByCompanyFlight(String comp, ArrayList<Flight> FlightList) {
 		for (int i = 0; i < FlightList.size(); i++) {
-			if (!(comp.equalsIgnoreCase(FlightList.get(i).getCompany().trim()))) {
+			if (!(comp.equalsIgnoreCase(FlightList.get(i).getCompany().replaceAll("\\s+", "")))) {
 				FlightList.remove(i);
 			}
 		}
