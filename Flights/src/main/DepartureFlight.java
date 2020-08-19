@@ -14,6 +14,11 @@ public class DepartureFlight extends Flight {
 
 	public static boolean add(DepartureFlight a) {
 		try {
+			for (int i = 0; i < departureList.size(); i++) {
+				if(a.getFlightNum() == departureList.get(i).getFlightNum()) {
+					return false;
+				}
+			}
 			departureList.add(a);
 			return true;
 		} catch (Exception e) {
@@ -45,6 +50,9 @@ public class DepartureFlight extends Flight {
 
 	public static String show() {
 		return (departureList.toString().replace('[', ' ').replace(']', ' '));
-
+	}
+	
+	public static ArrayList<DepartureFlight> getArry(){
+		return departureList;
 	}
 }

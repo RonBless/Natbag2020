@@ -16,6 +16,11 @@ public class LandingsFlight extends Flight {
 
 	public static boolean add(LandingsFlight a) {
 		try {
+			for (int i = 0; i < landingList.size(); i++) {
+				if(a.getFlightNum() == landingList.get(i).getFlightNum()) {
+					return false;
+				}
+			}
 			landingList.add(a);
 			return true;
 		} catch (Exception e) {
@@ -54,6 +59,10 @@ public class LandingsFlight extends Flight {
 	public String toString() {
 		return "\nCompany: " + company + " , Origin: " + origin + " , Flight number: " + flightNum + " , Date: " + date
 				+ " , Time: " + time;
+	}
+
+	public static ArrayList<LandingsFlight> getArry(){
+		return landingList;
 	}
 
 }

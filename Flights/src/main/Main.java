@@ -28,7 +28,9 @@ public class Main {
 		Date date1 = new Date(121,1,2);
 		Time time1 = new Time(2,2,0);
 		FlightList.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
+		DepartureFlight.add(new DepartureFlight("El Al","Amsterdam" , "002", date1 ,  time1));
 		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
+		LandingsFlight.add((new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1)));
 
 		if(args.length>0) {
 			boolean isHtml = args[0].equalsIgnoreCase("html");
@@ -60,12 +62,13 @@ public class Main {
 
 
 	public static boolean Menu (Scanner s, ArrayList<Flight> FlightList, Comparator<Flight> ComparFlights, File f) throws IOException {
+		String flightnum; //for remove flight.
 		System.out.println("Please enter your choice: ");
 		System.out.println("1- Add a new flight\n2- Remove a flight\n3- Show all flight\n4- save to file\n5- read from file\n6- Search by month \n7- Show flights by destination\n8- exit");
 		String input = s.next();
 		switch(input){
 		case "1": // add new flight
-			System.out.println("Is it a Landing or a Departure ");
+			System.out.println("Is it a landing or a departure ");
 			switch(s.next()) {
 			case "landing":
 				addNewFlight(s, FlightList, ComparFlights, true); // true = landing
@@ -82,10 +85,14 @@ public class Main {
 			System.out.println("Is it a Landing or a Departure ");
 			switch (s.next()) {
 			case "landing":
-				removeFlight(s, FlightList, true);
+				System.out.println("Enter the flight number");
+				flightnum = s.next();
+				removeFlight(flightnum,FlightList, true);
 				break;
 			case "departure":
-				removeFlight(s, FlightList, false);
+				System.out.println("Enter the flight number");
+				flightnum = s.next();
+				removeFlight(flightnum, FlightList, false);
 				break;
 			default:
 				System.out.println("Wrong input");
@@ -145,32 +152,35 @@ public class Main {
 
 	}
 
-	public static void removeFlight(Scanner s, ArrayList<Flight> FlightList,
-			boolean check) {
-		System.out.println("Hello, please enter the flight you want to remove from the list, via flightNum");
-		String flightNum = s.next();
+	public static boolean removeFlight(String flightNum, ArrayList<Flight> FlightList,boolean check) {
+		ArrayList<DepartureFlight> flightListDeparture = DepartureFlight.getArry();
+		ArrayList<LandingsFlight> flightListLanding = LandingsFlight.getArry();
 		if (check) {
-			for (int i = 0; i < FlightList.size(); i++) {
-				if (FlightList.get(i).getFlightNum().equals(flightNum)) {
-					LandingsFlight f = (LandingsFlight) FlightList.get(i);
-					LandingsFlight.remove(f);
-					FlightList.remove(i);
-					System.out.println(FlightList.get(i) + "\nFlight has been removed\n");
-				} else {
-					for (int j = 0; j < FlightList.size(); j++) {
-						if (FlightList.get(i).getFlightNum().equals(flightNum)) {
-							DepartureFlight.remove((DepartureFlight) FlightList.get(i));
-							System.out.println(FlightList.get(i) + "\nFlight has been removed\n");
-							FlightList.remove(i);
-						}
-
-					}
-
+			for (int i = 0; i < flightListLanding.size(); i++) {
+				if (flightListLanding.get(i).getFlightNum().equals(flightNum)) {
+					FlightList.remove(flightListLanding.get(i));
+					flightListLanding.remove(i);
+					System.out.println(flightNum+ " Flight has been removed\n");
+					return true;
 				}
-
 			}
+			System.out.println("No landing flight with this number");
+			return false;
+		}
+		else {
+			for (int j = 0; j < FlightList.size(); j++) {
+				if (flightListDeparture.get(j).getFlightNum().equals(flightNum)) {
+					FlightList.remove(flightListDeparture.get(j));
+					flightListDeparture.remove(j);
+					System.out.println(flightNum+ " Flight has been removed\n");
+					return true;
+				}
+			}
+			System.out.println("No departure flight with this number");
+			return false;
 		}
 	}
+
 
 
 	public static String showAllFlights(ArrayList<Flight> FlightList) {
@@ -268,7 +278,7 @@ public class Main {
 			System.out.println("\nData transferd successfully\n");
 		}
 	}
-
+	
 
 	public static String SearchByMonth (int month,ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();

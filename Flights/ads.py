@@ -32,3 +32,5 @@ def arr():
 
 
 app.run(port=8000, host="0.0.0.0")
+
+#http://localhost:8000/departures?outformat=html&country=france&city=paris&airport=CDG&airline=elal&day1=4&month1=6&year1=2020&day2=31&month2=7&year2=2020&sunday=true&monday=false&tuesday=false&wednesday=true&thursday=false&friday=false&saturday=false
