@@ -23,17 +23,9 @@ public class Main {
 				return f1.compare(f2);
 			}
 		};
-//		Date date = new Date(121,0,1);
-//		Time time = new Time(1,1,0);
-//		Date date1 = new Date(121,1,2);
-//		Time time1 = new Time(2,2,0);
-//		FlightList.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
-//		DepartureFlight.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
-//		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
-//		LandingsFlight.add((new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1)));
-		readFromFile(FlightList);
-
+		
 		if(args.length>0) {
+			readFromFile(FlightList);
 			ArrayList<Flight> list = new ArrayList<Flight>();
 			boolean isHtml = args[0].equalsIgnoreCase("html");
 			boolean isDepartures = args.length > 1 && args[1].equalsIgnoreCase("departures");
