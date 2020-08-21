@@ -33,8 +33,12 @@ def arr():
 
 app.run(port=8000, host="0.0.0.0")
 
-#depatrue flight link
+#depatrue flight link:
+#Amsterdam
 #http://localhost:8000/departures?outformat=html&country=Amsterdam&airline=elal&flightNumber=002&day1=4&month1=6&year1=2020&day2=31&month2=7&year2=2021&sunday=true&monday=false&tuesday=true&wednesday=true&thursday=false&friday=false&saturday=false
+#New York
+#http://localhost:8000/departures?outformat=html&country=NewYork&airline=elal&flightNumber=-1&day1=4&month1=6&year1=1999&day2=31&month2=7&year2=2022&sunday=true&monday=true&tuesday=true&wednesday=true&thursday=true&friday=true&saturday=true
 
-#landing flight link
+
+#landing flight link:
 #http://localhost:8000/landings?outformat=html&origin=TELAVIV&airline=AmericaAirLines&flightNumber=003&day1=4&month1=6&year1=2020&day2=31&month2=7&year2=2022&sunday=true&monday=true&tuesday=true&wednesday=true&thursday=true&friday=true&saturday=true

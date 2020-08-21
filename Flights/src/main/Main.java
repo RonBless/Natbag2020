@@ -23,14 +23,15 @@ public class Main {
 				return f1.compare(f2);
 			}
 		};
-		Date date = new Date(121,0,1);
-		Time time = new Time(1,1,0);
-		Date date1 = new Date(121,1,2);
-		Time time1 = new Time(2,2,0);
-		FlightList.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
-		DepartureFlight.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
-		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
-		LandingsFlight.add((new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1)));
+//		Date date = new Date(121,0,1);
+//		Time time = new Time(1,1,0);
+//		Date date1 = new Date(121,1,2);
+//		Time time1 = new Time(2,2,0);
+//		FlightList.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
+//		DepartureFlight.add(new DepartureFlight("ElAl","Amsterdam" , "002", date1 ,  time1));
+//		FlightList.add(new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1));
+//		LandingsFlight.add((new LandingsFlight("America AirLines", "Los Angels" ,"003", date, time1)));
+		readFromFile(FlightList);
 
 		if(args.length>0) {
 			ArrayList<Flight> list = new ArrayList<Flight>();
@@ -227,7 +228,7 @@ public class Main {
 		String destination = null;
 		Date date = null;
 		Time time = null;
-		boolean check=false;
+		boolean check=false; //landing / departure
 		if(f.exists()) {
 			Scanner s = new Scanner(f);
 			while(s.hasNext()) {
@@ -260,7 +261,7 @@ public class Main {
 						sb.append(stop);
 						sb.append(" ");
 						stop = s.next();
-						check = true; // check for departure or landing.
+						check = true; // landing
 
 					}
 					destination = sb.toString();
@@ -285,15 +286,16 @@ public class Main {
 				if(temp.equals("Time:")) {
 					if(check){
 						LandingsFlight flight = new LandingsFlight(company, destination, flightNum, date, time);
-						LandingsFlight.add(flight);
-						FlightList.add(flight);
+						if(LandingsFlight.add(flight)) {
+							FlightList.add(flight);
+						}
 						check = false;
-
 					}
 					else {
 						DepartureFlight flight = new DepartureFlight(company, destination, flightNum, date, time);
-						DepartureFlight.add(flight);
-						FlightList.add(flight);
+							if(DepartureFlight.add(flight)) {
+								FlightList.add(flight);
+							}
 					}
 
 				}
