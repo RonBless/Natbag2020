@@ -23,7 +23,6 @@ public class Main {
 				return f1.compare(f2);
 			}
 		};
-		
 		if(args.length>0) {
 			readFromFile(FlightList);
 			ArrayList<Flight> list = new ArrayList<Flight>();
@@ -112,6 +111,7 @@ public class Main {
 			return true;
 		case "5": // read from file
 			readFromFile(FlightList);
+			System.out.println("Data transferd successfully");
 			return true;
 		case "6": // search by month
 			System.out.println("Enter the month number you want to see");
@@ -293,7 +293,6 @@ public class Main {
 				}
 			}
 			s.close();
-			System.out.println("\nData transferd successfully\n");
 		}
 	}
 
@@ -397,7 +396,7 @@ public class Main {
 	public static String showWithDate(ArrayList<Flight> FlightList) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < FlightList.size(); i++) {
-			sb.append(FlightList.get(i).toString() + " " +FlightList.get(i).getDayInString());
+			sb.append(FlightList.get(i).toString() + " " +FlightList.get(i).getDayInString() + "<br>");
 		}
 		return sb.toString();
 	}
